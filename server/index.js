@@ -4,6 +4,7 @@ const port = 3000;
 const { User } = require('./models/User.js');
 const bodyParser = require('body-parser');
 const coockieParser = require('cookie-parser');
+const { auth } = require('../middleware/auth.js');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(coockieParser());
@@ -16,7 +17,7 @@ mongoose.connect(config.mongoURI)
 
 app.get('/', (req, res) => res.send("hello World!!!"))
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     //회원 가입 할 때 필요한 정보들을 clinet에서 가져오면
     //그것들을 데이터 베이스에 넣어준다.
     const user = new User(req.body);
@@ -60,8 +61,37 @@ app.post('/api/users/login', (req, res) => {
         })
 })
 
-//비밀번호 까지 맞다면 토큰을 생성하기.
 
+//role 1 어드인 role 2 특정 부서 어드민
+// role 0 -> 일반유저 role 0이 아니면 관리자
+
+app.get('/api/users/auth', auth, (req, res) => {
+
+    //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication 이 True 라는 말.
+    res.status(200).json({
+        _id: req.user._id,
+        isAdmin: req.user.role === 0 ? false : true,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role,
+        image: req.user.image
+    })
+})
+
+app.get('/api/users/logout', auth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
+        .then(user => {
+            console.log(user);
+            return res.status(200).send({
+                success: true
+            })
+        })
+        .catch(err => {
+            return res.json({ success: false, err })
+        })
+})
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
