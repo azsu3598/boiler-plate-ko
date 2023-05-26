@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const port = 3000;
-const { User } = require('./models/User.js');
+const port = 5000;
+const { User } = require('./models/User');
 const bodyParser = require('body-parser');
 const coockieParser = require('cookie-parser');
-const { auth } = require('../middleware/auth.js');
+const { auth } = require('./middleware/auth');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(coockieParser());
@@ -16,6 +16,11 @@ mongoose.connect(config.mongoURI)
 
 
 app.get('/', (req, res) => res.send("hello World!!!"))
+
+app.get('/api/hello', (req, res) => {
+    res.send("안녕하세요~")
+})
+
 
 app.post('/api/users/register', (req, res) => {
     //회원 가입 할 때 필요한 정보들을 clinet에서 가져오면
