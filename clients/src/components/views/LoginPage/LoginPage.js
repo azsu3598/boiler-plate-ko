@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../../_actions/user_action'
-
-function LoginPage(props) {
-
+import { useNavigate } from "react-router-dom";
+import Auth from "../../../hoc/auth"
+function LoginPage() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
 
@@ -27,7 +27,7 @@ function LoginPage(props) {
             .then(response => {
                 console.log(response)
                 if (response.payload.loginSuccess) {
-                    props.history.push('/')
+                    navigate('/');
                 } else {
                     alert('Failed!!')
                 }
@@ -56,4 +56,4 @@ function LoginPage(props) {
     )
 }
 
-export default LoginPage
+export default Auth(LoginPage, false);
