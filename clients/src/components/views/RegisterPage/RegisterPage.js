@@ -10,6 +10,7 @@ function RegisterPage() {
     const [Name, setName] = useState("")
     const [Password, setPassword] = useState("")
     const [Confirm_Password, setConfirm_Password] = useState("")
+    const [Phone, SetPhone] = useState("")
 
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value)
@@ -22,6 +23,9 @@ function RegisterPage() {
     }
     const onConfirm_PasswordHandler = (event) => {
         setConfirm_Password(event.currentTarget.value)
+    }
+    const PhoneHandler = (event) => {
+        SetPhone(event.currentTarget.value)
     }
     const onSubmitHandler = (event) => {
         event.preventDefault();
@@ -62,6 +66,8 @@ function RegisterPage() {
                 <input type='password' value={Password} onChange={onPasswordHandler}></input>
                 <label>Confirm_Password</label>
                 <input type='Confirm_password' value={Confirm_Password} onChange={onConfirm_PasswordHandler}></input>
+                <label>Phone</label>
+                <input type='Phone' value={Phone} onChange={PhoneHandler}></input>
                 <br />
                 <button style={{}}>
                     회원가입
