@@ -17,7 +17,6 @@ function Auth(SpecificComponent, option, adminRoute = null) {
                         navigate('/login');
                     }
                 } else {
-                    console.log(res.payload.name)
                     //로그인 한 상태
                     if (adminRoute && !res.payload.isAdmin) {
                         navigate('/')
@@ -28,6 +27,7 @@ function Auth(SpecificComponent, option, adminRoute = null) {
                 }
             }
             );
+            // eslint-disable-next-line
         }, []);
 
         return <SpecificComponent />;

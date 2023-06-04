@@ -65,7 +65,7 @@ function RegisterPage() {
                 <label>Password</label>
                 <input type='password' value={Password} onChange={onPasswordHandler}></input>
                 <label>Confirm_Password</label>
-                <input type='Confirm_password' value={Confirm_Password} onChange={onConfirm_PasswordHandler}></input>
+                <input type='password' value={Confirm_Password} onChange={onConfirm_PasswordHandler}></input>
                 <label>Phone</label>
                 <input type='Phone' value={Phone} onChange={PhoneHandler}></input>
                 <br />
