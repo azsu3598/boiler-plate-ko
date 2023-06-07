@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const { User } = require('./models/User');
+const { Post } = require('./models/Post');
 const bodyParser = require('body-parser');
 const coockieParser = require('cookie-parser');
 const { auth } = require('./middleware/auth');
@@ -97,6 +98,33 @@ app.get('/api/users/logout', auth, (req, res) => {
             return res.json({ success: false, err })
         })
 })
+app.get('/api/posts', (req, res) => {
+    Post.find()
+        .then(posts => {
+            res.json(posts);
+        })
+        .catch(error => {
+            console.error('Error fetching posts:', error);
+            res.status(500).json({ error: 'Failed to fetch posts' });
+        });
+});
+
+app.post('/api/posts', (req, res) => {
+    const { title, content } = req.body;
+    const currentTime = new Date();
+
+    const newPost = new Post({ title, content, time: currentTime });
+    newPost.save()
+        .then(savedPost => {
+            res.status(201).json(savedPost);
+        })
+        .catch(error => {
+            console.error('Error creating post:', error);
+            res.status(500).json({ error: 'Failed to create post' });
+        });
+});
+
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

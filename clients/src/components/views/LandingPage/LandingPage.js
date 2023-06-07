@@ -66,9 +66,9 @@ function LandingPage() {
                     <li>
                         <Link to="/Register">회원가입</Link>
                     </li>
-                    {/* <li>
-                     <Link to="/Chat">채팅방</Link>
-                </li> */}
+                    {<li>
+                        <Link to="/Post">게시판</Link>
+                    </li>}
                 </ul>
                 <hr />
             </div>
