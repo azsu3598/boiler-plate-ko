@@ -124,7 +124,65 @@ app.post('/api/posts', (req, res) => {
         });
 });
 
+app.get('/api/posts/:id', (req, res) => {
+    const postId = req.params.id;
 
+    // postId를 사용하여 게시물 조회
+    Post.findById(postId)
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({ error: '게시물을 찾을 수 없습니다.' });
+            }
+            //console.log(post);
+            res.json(post);
+        })
+        .catch(error => {
+            console.error('Error fetching post:', error);
+            res.status(500).json({ error: '게시물 조회 중 오류가 발생했습니다.' });
+        });
+});
+
+app.get('/api/posts/:id', (req, res) => {
+    const postId = parseInt(req.params.id);
+    const post = posts.find(p => p.id === postId);
+    if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+    }
+    return res.json(post);
+});
+
+app.post('/api/posts/:id/like', (req, res) => {
+    const postId = req.params.id;
+
+    Post.findByIdAndUpdate(postId, { $inc: { likes: 1 } }, { new: true })
+        .then((post) => {
+            if (!post) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+            res.json({ likes: post.likes });
+        })
+        .catch((error) => {
+            console.error('Error liking post:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
+// Dislike a post
+app.post('/api/posts/:id/dislike', (req, res) => {
+    const postId = req.params.id;
+
+    Post.findByIdAndUpdate(postId, { $inc: { dislikes: 1 } }, { new: true })
+        .then((post) => {
+            if (!post) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+            res.json({ dislikes: post.dislikes });
+        })
+        .catch((error) => {
+            console.error('Error disliking post:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

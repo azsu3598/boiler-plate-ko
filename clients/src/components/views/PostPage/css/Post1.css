@@ -1,0 +1,49 @@
+.post-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    /* border: 1px solid #ccc; */
+    text-align: center;
+}
+
+.post-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.post-title::after {
+    content: "";
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    border-bottom: 2px solid #ccc;
+    margin-top: 10px;
+}
+
+.post-content {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.post-time {
+    font-size: 12px;
+    color: #888;
+}
+
+.post-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.like-button,
+.dislike-button {
+    margin: 5px;
+}
+
+.vote-count {
+    margin: 0 5px;
+}

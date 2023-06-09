@@ -1,0 +1,20 @@
+.post-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.post-title {
+  grid-column: 1;
+}
+
+.post-time {
+  grid-column: 2;
+  text-align: right;
+}
+
+.post-content {
+  grid-column: 1 / span 2;
+}
