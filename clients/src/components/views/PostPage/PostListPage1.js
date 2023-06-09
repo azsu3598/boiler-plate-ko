@@ -22,9 +22,16 @@ function PostListPage1() {
         navigate(`/post/${postId}`);
     };
 
+    const goToCreatePage = () => {
+        navigate('/post/create');
+    };
+
     return (
         <div>
             <h1>게시판</h1>
+            <div className="post-create-button-container">
+                <button onClick={goToCreatePage}>글 작성</button>
+            </div>
             <div className="post-grid">
                 {posts.map(post => (
                     <div key={post._id} className="post-card" onClick={() => viewPost(post._id)}>

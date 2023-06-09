@@ -46,18 +46,18 @@ function Post1() {
     }
 
     return (
-        <div className="post-container">
-            <h2 className="post-title">{post.title}</h2>
-            <p className="post-content">{post.content}</p>
-            <p className="post-time">{post.time}</p>
-            <div className="post-buttons">
-                <button className="like-button" onClick={handleLike}>
+        <div className="post-container-1">
+            <h2 className="post-title-1">{post.title}</h2>
+            <p className="post-content-1">{post.content}</p>
+            <p className="post-time-1">{post.time}</p>
+            <div className="post-buttons-1">
+                <button className="like-button-1" onClick={handleLike}>
                     추천 {likes}
                 </button>
-                <span className="vote-count">
+                <span className="vote-count-1">
                     {likes - dislikes}
                 </span>
-                <button className="dislike-button" onClick={handleDislike}>
+                <button className="dislike-button-1" onClick={handleDislike}>
                     비추천 {dislikes}
                 </button>
             </div>

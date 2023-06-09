@@ -111,12 +111,13 @@ app.get('/api/posts', (req, res) => {
 
 app.post('/api/posts', (req, res) => {
     const { title, content } = req.body;
-    const currentTime = new Date();
+    const currentTime = new Date().toISOString();
 
     const newPost = new Post({ title, content, time: currentTime });
     newPost.save()
         .then(savedPost => {
-            res.status(201).json(savedPost);
+            res.status(201).json({ _id: savedPost._id });
+
         })
         .catch(error => {
             console.error('Error creating post:', error);
