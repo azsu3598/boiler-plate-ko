@@ -15,7 +15,7 @@ import CalLaliga from './components/views/callender/CalLaliga';
 import CalLigue1 from './components/views/callender/CalLigue1';
 import CalSeriea from './components/views/callender/CalSeriea';
 import CalBundesliga from './components/views/callender/CalBundesliga';
-
+import Team from './components/views/TeamPage/Team';
 function App() {
   return (
     <div>
@@ -33,6 +33,7 @@ function App() {
         <Route exact path='/cal/ligue1' element={<CalLigue1 />} />
         <Route exact path='/cal/seriea' element={<CalSeriea />} />
         <Route exact path='/cal/bundesliga' element={<CalBundesliga />} />
+        <Route exact path='/team' element={<Team />} />
       </Routes>
     </div>
   );

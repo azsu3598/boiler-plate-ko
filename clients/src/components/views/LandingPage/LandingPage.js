@@ -87,6 +87,9 @@ function LandingPage() {
                     <li>
                         <Link to="cal/bundesliga">독일</Link>
                     </li>
+                    <li>
+                        <Link to="team">팀 분석</Link>
+                    </li>
                 </ul>
                 <hr />
             </div>
