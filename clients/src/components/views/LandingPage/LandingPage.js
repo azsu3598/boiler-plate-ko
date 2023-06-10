@@ -66,9 +66,27 @@ function LandingPage() {
                     <li>
                         <Link to="/Register">회원가입</Link>
                     </li>
-                    {<li>
+                    <li>
                         <Link to="/post">게시판</Link>
-                    </li>}
+                    </li>
+                    <li>
+                        <Link to="chat">채팅</Link>
+                    </li>
+                    <li>
+                        <Link to="cal/epl">잉글랜드</Link>
+                    </li>
+                    <li>
+                        <Link to="cal/laliga">스페인</Link>
+                    </li>
+                    <li>
+                        <Link to="cal/ligue1">프랑스</Link>
+                    </li>
+                    <li>
+                        <Link to="cal/seriea">이탈리아</Link>
+                    </li>
+                    <li>
+                        <Link to="cal/bundesliga">독일</Link>
+                    </li>
                 </ul>
                 <hr />
             </div>

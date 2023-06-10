@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const port = 5000;
+const https = require('https');
+const axios = require('axios');
+const moment = require('moment');
+const cors = require('cors');
 const { User } = require('./models/User');
 const { Post } = require('./models/Post');
 const bodyParser = require('body-parser');
@@ -14,13 +18,23 @@ const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI)
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
+app.use('/', express.static(__dirname + '/Shin', {
+    setHeaders: function (res, path, stat) {
+        if (path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'text/javascript');
+        } else if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        }
+    }
+}));
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+
 
 
 app.get('/', (req, res) => res.send("hello World!!!"))
-
-/*app.get('/api/hello', (req, res) => {
-    res.send("안녕하세요~")
-})*/
 
 
 app.post('/api/users/register', (req, res) => {
@@ -184,6 +198,254 @@ app.post('/api/posts/:id/dislike', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 });
+// ================================================
+
+app.get('/cal/cal/epl', (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
+        params: {
+            league: 39,
+            season: 2022,
+        },
+        headers: {
+            'x-rapidapi-key': '96e6fbd9e1msh363fb680c23119fp131a0ajsn8edccdfdd332',
+            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+            useQueryString: true,
+        },
+    };
+
+    axios
+        .request(options)
+        .then((response) => {
+            const fixtures = response.data.response;
+
+            const events = fixtures.map((fixture) => ({
+                title: `${fixture.teams.home.name} vs ${fixture.teams.away.name}`,
+                start: moment.utc(fixture.fixture.date).format(),
+                end: moment.utc(fixture.fixture.date).format(),
+                fixtureId: fixture.fixture.id,
+            }));
+
+            res.json(events);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Failed to fetch fixtures' });
+        });
+});
+app.get('/cal/cal/laliga', (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
+        params: {
+            league: 140,
+            season: 2022,
+        },
+        headers: {
+            'x-rapidapi-key': '96e6fbd9e1msh363fb680c23119fp131a0ajsn8edccdfdd332',
+            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+            useQueryString: true,
+        },
+    };
+
+    axios
+        .request(options)
+        .then((response) => {
+            const fixtures = response.data.response;
+
+            const events = fixtures.map((fixture) => ({
+                title: `${fixture.teams.home.name} vs ${fixture.teams.away.name}`,
+                start: moment.utc(fixture.fixture.date).format(),
+                end: moment.utc(fixture.fixture.date).format(),
+                fixtureId: fixture.fixture.id,
+            }));
+
+            res.json(events);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Failed to fetch fixtures' });
+        });
+});
+app.get('/cal/cal/ligue1', (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
+        params: {
+            league: 61,
+            season: 2022,
+        },
+        headers: {
+            'x-rapidapi-key': '96e6fbd9e1msh363fb680c23119fp131a0ajsn8edccdfdd332',
+            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+            useQueryString: true,
+        },
+    };
+
+    axios
+        .request(options)
+        .then((response) => {
+            const fixtures = response.data.response;
+
+            const events = fixtures.map((fixture) => ({
+                title: `${fixture.teams.home.name} vs ${fixture.teams.away.name}`,
+                start: moment.utc(fixture.fixture.date).format(),
+                end: moment.utc(fixture.fixture.date).format(),
+                fixtureId: fixture.fixture.id,
+            }));
+
+            res.json(events);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Failed to fetch fixtures' });
+        });
+});
+app.get('/cal/cal/seriea', (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
+        params: {
+            league: 135,
+            season: 2022,
+        },
+        headers: {
+            'x-rapidapi-key': '96e6fbd9e1msh363fb680c23119fp131a0ajsn8edccdfdd332',
+            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+            useQueryString: true,
+        },
+    };
+
+    axios
+        .request(options)
+        .then((response) => {
+            const fixtures = response.data.response;
+
+            const events = fixtures.map((fixture) => ({
+                title: `${fixture.teams.home.name} vs ${fixture.teams.away.name}`,
+                start: moment.utc(fixture.fixture.date).format(),
+                end: moment.utc(fixture.fixture.date).format(),
+                fixtureId: fixture.fixture.id,
+            }));
+
+            res.json(events);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Failed to fetch fixtures' });
+        });
+});
+app.get('/cal/cal/bundesliga', (req, res) => {
+    const options = {
+        method: 'GET',
+        url: 'https://api-football-v1.p.rapidapi.com/v3/fixtures',
+        params: {
+            league: 78,
+            season: 2022,
+        },
+        headers: {
+            'x-rapidapi-key': '96e6fbd9e1msh363fb680c23119fp131a0ajsn8edccdfdd332',
+            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+            useQueryString: true,
+        },
+    };
+
+    axios
+        .request(options)
+        .then((response) => {
+            const fixtures = response.data.response;
+
+            const events = fixtures.map((fixture) => ({
+                title: `${fixture.teams.home.name} vs ${fixture.teams.away.name}`,
+                start: moment.utc(fixture.fixture.date).format(),
+                end: moment.utc(fixture.fixture.date).format(),
+                fixtureId: fixture.fixture.id,
+            }));
+
+            res.json(events);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Failed to fetch fixtures' });
+        });
+});
+app.get('/cal/statistics', function (req, res) {
+    res.sendFile(__dirname + '/calStatistics.html');
+});
+let savedFixtureId = null;
+
+app.post('/save-fixture', (req, res) => {
+    const { fixtureId } = req.body;
+    savedFixtureId = fixtureId;
+    res.sendStatus(200);
+});
 
 
+app.get('/get-fixture', (req, res) => {
+    res.json({ fixtureId: savedFixtureId });
+});
+
+app.get('/cal/stats/:fixtureId', (req, res) => {
+    const fixtureId = req.params.fixtureId;
+    console.log('Fixture ID:', fixtureId);
+
+    const options = {
+        method: 'GET',
+        hostname: 'api-football-v1.p.rapidapi.com',
+        port: null,
+        path: `/v3/fixtures/statistics?fixture=${fixtureId}`,
+        headers: {
+            'x-rapidapi-key': '96e6fbd9e1msh363fb680c23119fp131a0ajsn8edccdfdd332',
+            'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+            useQueryString: true,
+        },
+    };
+
+    const req4 = https.request(options, function (response) {
+        const chunks = [];
+
+        response.on('data', function (chunk) {
+            chunks.push(chunk);
+        });
+
+        response.on('end', function () {
+            const body = Buffer.concat(chunks);
+            const responseData = JSON.parse(body.toString()).response;
+
+            const stats = {};
+
+            responseData.forEach(item => {
+                const teamName = item.team.name;
+                const statistics = item.statistics.map(statistic => ({
+                    type: statistic.type,
+                    value: statistic.value !== null ? statistic.value : 0,
+                }));
+
+                if (!stats[teamName]) {
+                    stats[teamName] = {
+                        teamName,
+                        statistics,
+                    };
+                } else {
+                    stats[teamName].statistics = stats[teamName].statistics.concat(statistics);
+                }
+            });
+
+            const statsArray = Object.values(stats);
+
+            console.log(statsArray); // 팀 이름과 통계 값만 출력
+
+            // 통계 데이터를 클라이언트에 전송
+            res.json(statsArray);
+        });
+    });
+
+    req4.end();
+
+    req4.on('error', function (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'An error occurred while fetching statistics' });
+    });
+});
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
